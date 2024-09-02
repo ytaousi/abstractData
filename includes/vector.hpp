@@ -2,6 +2,7 @@
 #define VECTOR_HPP
 
 #include <memory>
+#include "lexicographical_compare.hpp"
 
 namespace ft {
 
@@ -76,10 +77,18 @@ class vector
             return false;
         }
     }
-    friend bool operator<  (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs);
-    friend bool operator<= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs);
-    friend bool operator>  (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs);
-    friend bool operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs);
+    friend bool operator<  (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+        return ft::lexicographical_compare<T>(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+    friend bool operator<= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+        return !(rhs < lhs);
+    }
+    friend bool operator>  (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+        return (rhs < lhs);
+    }
+    friend bool operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+        return !(lhs < rhs);
+    }
 };
 
 }

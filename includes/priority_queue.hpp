@@ -2,10 +2,12 @@
 #define PRIORIT_QUEUE_HPP
 
 #include <iostream>
+#include <algorithm>
+#include "less.hpp"
 
 namespace ft {
 
-template <class T, class Container, class Compare>
+template <class T, class Container, class Compare = std::less<typename Container::value_type> > // ft::less<typename Container::value_type>
 class priority_queue
 {
     public:
@@ -17,12 +19,26 @@ class priority_queue
         container_type container;
         value_compare comp;
     public:
-        explicit priority_queue (const Compare& comp = Compare(), const Container& ctnr = Container());
+        //     template< class InputIt >
+        // priority_queue( InputIt first, InputIt last, const Compare& compare = Compare(), const Container& cont = Container() );
+        priority_queue( const priority_queue& other );
+        explicit priority_queue (const Compare& comp = Compare(), const Container& ctnr = Container()) {
+            std::cout << " Default Constructor Called " << std::endl;
+            container = ctnr;
+            comp = comp;
+            std::make_heap(c.begin(), c.end(), comp); // ft::make_heap(c.begin(), c.end(), comp <- ft::less);
+        }
         ~priority_queue() {
             container.clear();
         }
-        priority_queue& operator=( const priority_queue& other );
-        const_reference top() const;
+        priority_queue& operator=( const priority_queue& other ) {
+            container = other.container;
+            comp = other.comp;
+            return *this;
+        }
+        const_reference top() const {
+            return container.front();
+        }
         bool empty() const {
             return container.empty();
         }
@@ -32,9 +48,12 @@ class priority_queue
         void push( const value_type& value )
         {
             container.push_back(value);
-            std::push_heap(container.begin(), container.end(), comp); // ft::push_heap(Container::begin(), Container::end(), comp);
+            std::push_heap(container.begin(), container.end(), comp); // ft::push_heap(Container::begin(), Container::end(), comp <- ft::less);
         }
-        void pop();
+        void pop() {
+            std::pop_heap(container.begin(), container.end(), comp); // ft::pop_heap(container.begin(), container.end(), comp <- ft::less);
+            container.pop_back();
+        }
 };
 }
 
