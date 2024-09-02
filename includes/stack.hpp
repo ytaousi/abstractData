@@ -4,7 +4,6 @@
 #include <deque>
 #include <vector>
 #include <list>
-#include <memory>
 #include <iostream>
 
 
@@ -49,7 +48,7 @@ class stack
         size_type size() const {
             return container.size();
         }
-        void push( const value_type& value ) {
+        void push( const_reference value ) {
             container.push_back(value);
         }
 		void pop() {
