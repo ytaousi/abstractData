@@ -9,6 +9,7 @@ SRCS_LIST = ./list.cpp
 SRCS_DEQUE = ./deque.cpp
 
 
+
 FLAGS = -Wall -Wextra -Werror -std=c++98
 OBJS = $(SRCS_STACK:.cpp=.o)
 
