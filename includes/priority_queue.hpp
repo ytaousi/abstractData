@@ -7,7 +7,7 @@
 
 namespace ft {
 
-template <class T, class Container, class Compare = std::less<typename Container::value_type> > // ft::less<typename Container::value_type>
+template <class T, class Container , class Compare > // ft::less<typename Container::value_type>
 class priority_queue
 {
     public:
@@ -19,8 +19,7 @@ class priority_queue
         container_type container;
         value_compare comp;
     public:
-        //     template< class InputIt >
-        // priority_queue( InputIt first, InputIt last, const Compare& compare = Compare(), const Container& cont = Container() );
+        priority_queue( InputIterator first, InputIterator last, const Compare& compare = Compare(), const Container& cont = Container() );
         priority_queue( const priority_queue& other );
         explicit priority_queue (const Compare& comp = Compare(), const Container& ctnr = Container()) {
             std::cout << " Default Constructor Called " << std::endl;

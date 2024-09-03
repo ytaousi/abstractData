@@ -1,0 +1,17 @@
+https://en.cppreference.com/w/cpp/named_req/SequenceContainer
+
+
+"Iterator Implementation"
+    "Iterator Definition Implemention"
+        "random_access"
+            "traits"
+            "Operations"
+        "bideractionnal"
+            "traits"
+            "Operations"
+        "input"
+            "traits"
+            "Operations"
+        "forward"
+            "traits"
+            "Operations"

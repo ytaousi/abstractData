@@ -10,6 +10,24 @@ template< class T, class Allocator = std::allocator<T> >
 class deque
 {
     public:
+        typedef T value_type;
+        typedef size_t size_type;
+        typedef ptrdiff_t difference_type;
+        typedef Allocator allocator_type;
+        typedef value_type& reference;
+        typedef const value_type& const_reference;
+        typedef T* pointer; // check this
+        typedef const T* const_pointer; // check this
+        typedef value_type* iterator;
+        typedef const value_type* const_iterator;
+        typedef std::reverse_iterator<iterator> reverse_iterator;   // ft::reverse_iterator<value_type*>
+        typedef std::reverse_iterator<const_iterator> const_reverse_iterator; // ft::reverse_iterator<const value_type*>
+    public:
+        // Desfault // Fill // Range // Copy
+        explicit deque (const allocator_type& alloc = allocator_type());
+        explicit deque (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+        deque (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+        deque (const deque& x);
         ~deque();
         deque& operator=( const deque& other );
         void assign( size_type count, const T& value );
@@ -31,8 +49,7 @@ class deque
         void clear();
         iterator insert( const_iterator pos, const T& value );
         iterator insert( const_iterator pos, size_type count, const T& value );
-        //     template< class InputIt >
-        // iterator insert( const_iterator pos, InputIt first, InputIt last );
+        iterator insert( const_iterator pos, InputIterator first, InputIterator last );
         iterator erase( iterator pos );
         iterator erase( iterator first, iterator last );
         void push_back( const T& value );
