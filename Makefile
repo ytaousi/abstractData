@@ -14,20 +14,20 @@ SRCS_QUEUE = ./queue.cpp
 
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
-OBJS = $(SRCS_QUEUE:.cpp=.o)
+OBJS = $(SRCS_DEQUE:.cpp=.o)
 
 %.o: %.cpp
 	clang++ $(FLAGS) -c $< -o $@
 
-all: $(QUEUE)
+all: $(DEQUE)
 
-$(QUEUE): $(OBJS)
-	clang++ $(FLAGS) $(OBJS) -o $(QUEUE)
+$(DEQUE): $(OBJS)
+	clang++ $(FLAGS) $(OBJS) -o $(DEQUE)
 
 clean:
 	@rm -f $(OBJS)
 
 fclean: clean
-	@rm -f $(QUEUE)
+	@rm -f $(DEQUE)
 
 re: fclean all

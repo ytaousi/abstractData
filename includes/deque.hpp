@@ -2,6 +2,7 @@
 #define DEQUE_HPP
 
 #include "lexicographical_compare.hpp"
+#include "iterator.hpp"
 #include <memory>
 
 namespace ft {
@@ -18,17 +19,26 @@ class deque
         typedef const value_type& const_reference;
         typedef T* pointer; // check this
         typedef const T* const_pointer; // check this
-        typedef value_type* iterator;
-        typedef const value_type* const_iterator;
-        typedef std::reverse_iterator<iterator> reverse_iterator;   // ft::reverse_iterator<value_type*>
-        typedef std::reverse_iterator<const_iterator> const_reverse_iterator; // ft::reverse_iterator<const value_type*>
+        typedef std::iterator<std::random_access_iterator_tag, value_type> iterator; // value_type*
+        typedef std::iterator<std::random_access_iterator_tag, const value_type> const_iterator; // const value_type*
+        typedef std::reverse_iterator<iterator> reverse_iterator;   //std::reverse_iterator<value_type*>
+        typedef std::reverse_iterator<const_iterator> const_reverse_itestdtor; // ft::reverse_iterator<const value_type*>
     public:
         // Desfault // Fill // Range // Copy
-        explicit deque (const allocator_type& alloc = allocator_type());
-        explicit deque (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
-        deque (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
-        deque (const deque& x);
+        explicit deque (const allocator_type& alloc = allocator_type()) {
+            std::cout << "Default constructor" << std::endl;
+        }
+        explicit deque (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {
+            std::cout << "Fill constructor" << std::endl;
+        }
+        deque (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {
+            std::cout << "Range Constructor Called" << std::endl;
+        }
+        deque (const deque& x) {
+            std::cout << "Copy constructor" << std::endl;
+        }
         ~deque();
+        // 
         deque& operator=( const deque& other );
         void assign( size_type count, const T& value );
         //     template< class InputIt >
@@ -42,7 +52,12 @@ class deque
         const_reference front() const;
         reference back();
         const_reference back() const;
-        bool empty() const;
+        bool empty() const {
+            if (this->size() == 0)
+                return true;
+            else
+                return false;
+        }
         size_type size() const;
         size_type max_size() const;
         void shrink_to_fit();
@@ -58,7 +73,12 @@ class deque
         void pop_front();
         void resize( size_type count );
         void resize( size_type count, const value_type& value );
-        void swap( deque& other );
+        void swap( deque& other ) {
+            for (ft::deque<T, Alloc>::iterator it = other.begin(); it != other.end(); it++)
+            {
+                std::cout << *it << std::endl;
+            }
+        }
 
 
         // Non-member function overloads
