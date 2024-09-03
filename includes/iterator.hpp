@@ -3,9 +3,10 @@
 
 #include "iterator_traits.hpp"
 #include <memory>
+#include <iostream>
 
 namespace ft {
-template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+template <class Category, class T, class Distance = std::ptrdiff_t, class Pointer = T*, class Reference = T&>
 class iterator
 {
     public:
@@ -20,19 +21,30 @@ template <class Iterator>
 class reverse_iterator
 {
     public:
-        // typedef typename ft::iterator_traits<Iterator>::value_type value_type;
-        // typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
-        // typedef typename ft::iterator_traits<Iterator>::pointer pointer;
-        // typedef typename ft::iterator_traits<Iterator>::reference reference;
-        // typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
+        typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
+        typedef typename ft::iterator_traits<Iterator>::pointer pointer;
+        typedef typename ft::iterator_traits<Iterator>::reference reference;
+        typedef Iterator iterator_type;
+        typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
+        typedef typename ft::iterator_traits<Iterator>::value_type value_type;
 
     protected:
         Iterator _it;
     public:
         // Default // Initialization // Copy
-        reverse_iterator();
-        explicit reverse_iterator (iterator_type it);
-        reverse_iterator (const ft::reverse_iterator<Iterator>& rev_it);
+        reverse_iterator() {
+            std::cout << "Default Constructor Called" << std::endl;
+            _it = Iterator();
+            _it = 0;
+        }
+        explicit reverse_iterator (iterator_type it) {
+            std::cout << "Initialization Constructor Called" << std::endl;
+            _it = it;
+        }
+        reverse_iterator (const reverse_iterator<Iterator>& rev_it) {
+            std::cout << "Copy Constructor Called" << std::endl;
+            _it = rev_it.base();
+        }
   
         reverse_iterator& operator++() {
             --_it;
@@ -53,18 +65,21 @@ class reverse_iterator
             return temp;
         }
         reverse_iterator operator+( difference_type n ) const {
-            return reverse_iterator(base()-n)
+            return reverse_iterator(base()- n);
         }
-        reverse_iterator operator-( difference_type n ) const;
+        reverse_iterator operator-( difference_type n ) const {
+            return reverse_iterator(base() + n);
+        }
         reverse_iterator& operator+=( difference_type n ) {
             this->operator-=(n);
+            return *this;
         }
         reverse_iterator& operator-=( difference_type n ) {
-            this->operator+=(-n);
+            this->operator+=(n);
             return *this;
         }
         iterator_type base() const {
-            return reverse_iterator((_it).base()) == _it
+            return (reverse_iterator(_it).base() == _it);
         }
         reference operator*() const {
             Iterator temp = _it;
@@ -96,12 +111,10 @@ class reverse_iterator
         friend bool operator>= (const reverse_iterator<Iterator>& lhs,                   const reverse_iterator<Iterator>& rhs) {
             return lhs.base() <= rhs.base();
         }
-        // template <class Iterator>
-        typename reverse_iterator<Iterator>::difference_type operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
+        friend difference_type operator- (const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
             return rhs.base() - lhs.base();
         }
-        //template <class Iterator>  
-        reverse_iterator<Iterator> operator+ (typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator>& rev_it) {
+        friend reverse_iterator<Iterator> operator+ (difference_type n, const reverse_iterator<Iterator>& rev_it) {
             return rev_it.operator+(n);
         }
 };
@@ -110,11 +123,6 @@ template <class Iterator>
 class random_access_iterator
 {
     public:
-        typedef typename ft::iterator_traits<Iterator>::value_type value_type;
-        typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
-        typedef typename ft::iterator_traits<Iterator>::pointer pointer;
-        typedef typename ft::iterator_traits<Iterator>::reference reference;
-        typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category; 
     public:
 };
 
@@ -122,11 +130,6 @@ template <class Iterator>
 class bideractional_iterator
 {
     public:
-        typedef typename ft::iterator_traits<Iterator>::value_type value_type;
-        typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
-        typedef typename ft::iterator_traits<Iterator>::pointer pointer;
-        typedef typename ft::iterator_traits<Iterator>::reference reference;
-        typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
     public:
 };
 
@@ -134,11 +137,6 @@ template <class Iterator>
 class InputIterator
 {
     public:
-        typedef typename ft::iterator_traits<Iterator>::value_type value_type;
-        typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
-        typedef typename ft::iterator_traits<Iterator>::pointer pointer;
-        typedef typename ft::iterator_traits<Iterator>::reference reference;
-        typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category; 
     public:
 };
 

@@ -4,6 +4,7 @@
 #include "lexicographical_compare.hpp"
 #include "iterator.hpp"
 #include <memory>
+#include <iterator>
 
 namespace ft {
 
@@ -13,7 +14,7 @@ class deque
     public:
         typedef T value_type;
         typedef size_t size_type;
-        typedef ptrdiff_t difference_type;
+        typedef std::ptrdiff_t difference_type;
         typedef Allocator allocator_type;
         typedef value_type& reference;
         typedef const value_type& const_reference;
@@ -27,17 +28,25 @@ class deque
         // Desfault // Fill // Range // Copy
         explicit deque (const allocator_type& alloc = allocator_type()) {
             std::cout << "Default constructor" << std::endl;
+            (void)alloc;
         }
         explicit deque (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {
             std::cout << "Fill constructor" << std::endl;
+            (void)n;
+            (void)val;
+            (void)alloc;
         }
-        deque (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {
+        deque (std::iterator<std::input_iterator_tag, value_type> first, std::iterator<std::input_iterator_tag, value_type> last, const allocator_type& alloc = allocator_type()) {
             std::cout << "Range Constructor Called" << std::endl;
+            (void)first;
+            (void)last;
+            (void)alloc;
         }
         deque (const deque& x) {
             std::cout << "Copy constructor" << std::endl;
+            (void)x;
         }
-        ~deque();
+        ~deque(){};
         // 
         deque& operator=( const deque& other );
         void assign( size_type count, const T& value );
@@ -64,7 +73,7 @@ class deque
         void clear();
         iterator insert( const_iterator pos, const T& value );
         iterator insert( const_iterator pos, size_type count, const T& value );
-        iterator insert( const_iterator pos, InputIterator first, InputIterator last );
+        iterator insert( const_iterator pos, std::iterator<std::input_iterator_tag, value_type> first, std::iterator<std::input_iterator_tag, value_type> last );
         iterator erase( iterator pos );
         iterator erase( iterator first, iterator last );
         void push_back( const T& value );
@@ -74,15 +83,12 @@ class deque
         void resize( size_type count );
         void resize( size_type count, const value_type& value );
         void swap( deque& other ) {
-            for (ft::deque<T, Alloc>::iterator it = other.begin(); it != other.end(); it++)
-            {
-                std::cout << *it << std::endl;
-            }
+            ;
         }
 
 
         // Non-member function overloads
-        friend bool operator== (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs) {
+        friend bool operator== (const ft::deque<T,Allocator>& lhs, const ft::deque<T,Allocator>& rhs) {
             if (lhs.size != rhs.size)
                 return false;
             else
@@ -97,22 +103,22 @@ class deque
                 return true;
             }
         }
-        friend bool operator!= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs) {
+        friend bool operator!= (const ft::deque<T,Allocator>& lhs, const ft::deque<T,Allocator>& rhs) {
             return !(lhs == rhs);
         }
-        friend bool operator<  (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs) {
+        friend bool operator<  (const ft::deque<T,Allocator>& lhs, const ft::deque<T,Allocator>& rhs) {
             return lexicographical_compare<T>(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
-        friend bool operator<= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs) {
+        friend bool operator<= (const ft::deque<T,Allocator>& lhs, const ft::deque<T,Allocator>& rhs) {
             return !(rhs < lhs);
         }
-        friend bool operator>  (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs) {
+        friend bool operator>  (const ft::deque<T,Allocator>& lhs, const ft::deque<T,Allocator>& rhs) {
             return rhs < lhs;
         }
-        friend bool operator>= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs) {
+        friend bool operator>= (const ft::deque<T,Allocator>& lhs, const ft::deque<T,Allocator>& rhs) {
             return	!(lhs < rhs);
         }
-        friend void swap( ft::deque<T, Alloc>& lhs, ft::deque<T, Alloc>& rhs ) {
+        friend void swap( ft::deque<T, Allocator>& lhs, ft::deque<T, Allocator>& rhs ) {
         lhs.swap(rhs);
     }
 
