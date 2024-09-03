@@ -5,7 +5,6 @@ int main()
     ft::stack<int, std::vector<int> > stack_vector;
     ft::stack<int, std::deque<int> > stack_deque;
     ft::stack<int, std::list<int> > stack_list;
-
     std::cout << "------push() function called" << std::endl;
     
     stack_vector.push(42);

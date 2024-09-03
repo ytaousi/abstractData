@@ -7,7 +7,7 @@
 
 namespace ft {
 
-template <class T, class Container , class Compare > // ft::less<typename Container::value_type>
+template <class T, class Container , class Compare = ft::less<typename Container::value_type> > // ft::less<typename Container::value_type>
 class priority_queue
 {
     public:

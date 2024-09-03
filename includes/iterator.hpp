@@ -4,9 +4,10 @@
 #include "iterator_traits.hpp"
 #include <memory>
 #include <iostream>
+#include <cstddef>
 
 namespace ft {
-template <class Category, class T, class Distance = std::ptrdiff_t, class Pointer = T*, class Reference = T&>
+template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
 class iterator
 {
     public:

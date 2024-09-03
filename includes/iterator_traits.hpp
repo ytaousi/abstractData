@@ -3,6 +3,7 @@
 
 
 #include <memory>
+#include <cstddef>
 namespace ft {
 
 template <class Iterator>
@@ -19,7 +20,7 @@ template <class T>
 class iterator_traits<T*>
 {
     typedef T value_type;
-    typedef std::ptrdiff_t difference_type;
+    typedef ptrdiff_t difference_type;
     typedef T* pointer;
     typedef T& reference;
     typedef std::random_access_iterator_tag iterator_category; // ft::random_access_iterator_tag ft::bidirectional_iterator_tag ft::forward_iterator_tag ft::input_iterator_tag
@@ -29,7 +30,7 @@ template <class T>
 class iterator_traits<const T*>
 {
     typedef T value_type;
-    typedef std::ptrdiff_t difference_type;
+    typedef ptrdiff_t difference_type;
     typedef const T* pointer;
     typedef const T& reference;
     typedef std::random_access_iterator_tag iterator_category; // ft::random_access_iterator_tag ft::bidirectional_iterator_tag ft::forward_iterator_tag ft::input_iterator_tag

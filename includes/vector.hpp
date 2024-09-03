@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "lexicographical_compare.hpp"
+#include <cstddef>
 // iterator , InputIterator
 namespace ft {
 
@@ -22,6 +23,10 @@ class vector
         typedef const value_type* const_iterator; // should implement iterator traits and get to random_access_iterator .
         typedef std::reverse_iterator<iterator> reverse_iterator;   // ft::reverse_iterator<value_type*>
         typedef std::reverse_iterator<const_iterator> const_reverse_iterator; // ft::reverse_iterator<const value_type*>
+    protected:
+        size_type   _capacity;
+        size_type   _size;
+        pointer     _array; // T*
     public:
         // Desfault // Fill // Range // Copy
         explicit vector( const Allocator& alloc );
