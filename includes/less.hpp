@@ -2,6 +2,7 @@
 #define LESS_HPP
 
 #include <functional>
+#include "binary_function.hpp"
 
 namespace ft {
 
@@ -17,6 +18,7 @@ struct less : std::binary_function<T,T,bool> // ft::binary_function<T,T,bool>
             return x<y;
         };
 };
+
 }
 
 #endif
