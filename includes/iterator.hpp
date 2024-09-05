@@ -30,7 +30,7 @@ class reverse_iterator
         typedef typename ft::iterator_traits<Iterator>::value_type value_type;
 
     protected:
-        Iterator _it;
+        iterator_type _it;
     public:
         // Default // Initialization // Copy
         reverse_iterator() {
