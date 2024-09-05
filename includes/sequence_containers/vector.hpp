@@ -5,6 +5,7 @@
 #include "../lexicographical_compare.hpp"
 #include <cstddef>
 #include <iostream>
+#include <iterator>
 
 namespace ft {
 
@@ -25,6 +26,8 @@ class vector
         typedef std::reverse_iterator<iterator> reverse_iterator;   // ft::reverse_iterator<value_type*>
         typedef std::reverse_iterator<const_iterator> const_reverse_iterator; // ft::reverse_iterator<const value_type*>
         typedef typename std::iterator<std::random_access_iterator_tag, value_type> InputIterator;
+        typedef iterator  begin();
+        typedef iterator  end();
     protected:
         allocator_type _alloc;
         size_type   _capacity;
@@ -32,16 +35,26 @@ class vector
         pointer     _array; // T*
     public:
         // Default // Fill // Range // Copy
-        vector(){std::cout <<" Default Constructor Called No param " << std::endl;};
+        vector(){std::cout <<" Default Constructor Called No param " << std::endl;
+            this->_capacity = 24;
+            this->_size = 0;
+            this->_array = this->get_allocator().allocate(this->_capacity);
+        };
         explicit vector( const Allocator& alloc ) {
             std::cout << " Default Constructor Called " << std::endl;
-            (void)alloc;
+            this->_alloc = alloc;
+            this->_capacity = 24;
+            this->_size = 0;
+            this->_array = this->_alloc.allocate(this->_capacity);
         };
         explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator() ) {
             std::cout << " Fill Constructor Called " << std::endl;
-            (void)count;
-            (void)value;
-            (void)alloc;
+            this->_alloc = alloc;
+            this->_capacity = count;
+            this->_size = count;
+            this->_array = this->_alloc.allocate(this->_capacity);
+            for (size_t i = 0; i < count; i++)
+                this->_alloc.construct(this->_array + i, value);
         };
         vector( InputIterator first, InputIterator last, const Allocator& alloc = Allocator() ) {
             std::cout << " Range Constructor Called " << std::endl;
@@ -53,8 +66,12 @@ class vector
             std::cout << " Copy constructor Called " << std::endl;
             (void)other;
         };
-        ~vector() {
+        ~vector() { // Done
             std::cout << " Destructor Called " << std::endl;
+            this->clear();
+            this->_alloc.deallocate(this->_array, this->_capacity);
+            this->_size = 0;
+            this->_capacity = 0;
         };
         vector& operator=( const vector& other ){
             std::cout << " Assign operator Called" << std::endl;
