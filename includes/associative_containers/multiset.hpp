@@ -1,15 +1,15 @@
 #ifndef MULTISET_HPP
 #define MULTISET_HPP
 
-//#include "pair.hpp"
-#include "less.hpp"
-#include "lexicographical_compare.hpp"
+//#include "../pair.hpp"
+#include "../less.hpp"
+#include "../lexicographical_compare.hpp"
 #include <memory>
 #include <cstddef>
 
 namespace ft {
 
-template< class Key, class Compare = std::less<Key>, class Allocator = std::allocator<Key> >
+template< class Key, class Compare = ft::less<Key>, class Allocator = std::allocator<Key> >
 class multiset
 {
     public:
@@ -57,11 +57,11 @@ class multiset
         iterator upper_bound( const Key& key );
         const_iterator upper_bound( const Key& key ) const;
         key_compare key_comp() const;
-        std::multiset::value_compare value_comp() const;
+        ft::multiset::value_compare value_comp() const;
 
 
         // Non-Member Functions
-        bool operator==( const ft::multiset<Key, Compare, Alloc>& lhs, const ft::multiset<Key, Compare, Alloc>& rhs ) {   
+        friend bool operator==( const ft::multiset<Key, Compare, Allocator>& lhs, const ft::multiset<Key, Compare, Allocator>& rhs ) {   
             if (lhs.size != rhs.size)
                 return false;
             else
@@ -76,22 +76,22 @@ class multiset
                 return true;
             }
         }
-        bool operator!=( const ft::multiset<Key, Compare, Alloc>& lhs, const ft::multiset<Key, Compare, Alloc>& rhs ) {
+        friend bool operator!=( const ft::multiset<Key, Compare, Allocator>& lhs, const ft::multiset<Key, Compare, Allocator>& rhs ) {
             return !(lhs == rhs);
         }
-        bool operator<( const ft::multiset<Key, Compare, Alloc>& lhs, const ft::multiset<Key, Compare, Alloc>& rhs ) {
+        friend bool operator<( const ft::multiset<Key, Compare, Allocator>& lhs, const ft::multiset<Key, Compare, Allocator>& rhs ) {
             return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
-        bool operator<=( const ft::multiset<Key, Compare, Alloc>& lhs, const ft::multiset<Key, Compare, Alloc>& rhs ) {
+        friend bool operator<=( const ft::multiset<Key, Compare, Allocator>& lhs, const ft::multiset<Key, Compare, Allocator>& rhs ) {
             return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
-        bool operator>( const ft::multiset<Key, Compare, Alloc>& lhs, const ft::multiset<Key, Compare, Alloc>& rhs ) {
+        friend bool operator>( const ft::multiset<Key, Compare, Allocator>& lhs, const ft::multiset<Key, Compare, Allocator>& rhs ) {
             return !(lhs <= rhs);
         }
-        bool operator>=( const ft::multiset<Key, Compare, Alloc>& lhs, const ft::multiset<Key, Compare, Alloc>& rhs ) {
+        friend bool operator>=( const ft::multiset<Key, Compare, Allocator>& lhs, const ft::multiset<Key, Compare, Allocator>& rhs ) {
             return !(lhs < rhs);
         }
-        friend void swap(ft::multiset<Key, Compare, Alloc>& lhs, ft::multiset<Key, Compare, Alloc>& rhs ) { 
+        friend void swap(ft::multiset<Key, Compare, Allocator>& lhs, ft::multiset<Key, Compare, Allocator>& rhs ) { 
             lhs.swap(rhs);
         }
 }; 

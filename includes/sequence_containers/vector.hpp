@@ -2,7 +2,7 @@
 #define VECTOR_HPP
 
 #include <memory>
-#include "../lexicographical_compare.hpp"
+#include "../utility/lexicographical_compare.hpp"
 #include <cstddef>
 #include <iostream>
 #include <iterator>

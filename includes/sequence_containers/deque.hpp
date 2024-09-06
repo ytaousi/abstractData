@@ -1,8 +1,8 @@
 #ifndef DEQUE_HPP
 #define DEQUE_HPP
 
-#include "../lexicographical_compare.hpp"
-#include "../iterator.hpp"
+#include "../utility/lexicographical_compare.hpp"
+#include "../iterator/iterator.hpp"
 #include <memory>
 #include <iterator>
 #include <cstddef>

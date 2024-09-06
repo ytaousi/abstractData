@@ -2,9 +2,9 @@
 #define SET_HPP
 
 
-#include "less.hpp"
-#include "iterator.hpp"
-#include "lexicographical_compare.hpp"
+#include "../utility/less.hpp"
+#include "../iterator/iterator.hpp"
+#include "../utility/lexicographical_compare.hpp"
 #include <iterator>
 #include <cstddef>
 
@@ -61,8 +61,7 @@ class set
         iterator upper_bound (const value_type& val) const;
         std::pair<iterator,iterator> equal_range (const value_type& val) const;
 
-        friend bool operator==( const ft::set<Key, Compare, Alloc>& lhs, const ft::set<Key, Compare, Alloc>& rhs )
-        {
+        friend bool operator==( const ft::set<Key, Compare, Allocator>& lhs, const ft::set<Key, Compare, Allocator>& rhs ) {
             if (lhs.size != rhs.size)
                 return false;
             else
@@ -77,23 +76,23 @@ class set
                 return true;
             }
         }  
-        friend bool operator!=( const ft::set<Key, Compare, Alloc>& lhs, const ft::set<Key, Compare, Alloc>& rhs ) {
+        friend bool operator!=( const ft::set<Key, Compare, Allocator>& lhs, const ft::set<Key, Compare, Allocator>& rhs ) {
             return !(lhs == rhs);
         }
-        friend bool operator<( const ft::set<Key, Compare, Alloc>& lhs, const ft::set<Key, Compare, Alloc>& rhs ) {
+        friend bool operator<( const ft::set<Key, Compare, Allocator>& lhs, const ft::set<Key, Compare, Allocator>& rhs ) {
             return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
         }
-        friend bool operator<=( const ft::set<Key, Compare, Alloc>& lhs, const ft::set<Key, Compare, Alloc>& rhs ) {
+        friend bool operator<=( const ft::set<Key, Compare, Allocator>& lhs, const ft::set<Key, Compare, Allocator>& rhs ) {
             return !(rhs < lhs);
         }
-        friend bool operator>( const ft::set<Key, Compare, Alloc>& lhs, const ft::set<Key, Compare, Alloc>& rhs ) {
+        friend bool operator>( const ft::set<Key, Compare, Allocator>& lhs, const ft::set<Key, Compare, Allocator>& rhs ) {
             return 	(lhs < rhs);
         }
-        friend bool operator>=( const ft::set<Key, Compare, Alloc>& lhs, const ft::set<Key, Compare, Alloc>& rhs ) {
+        friend bool operator>=( const ft::set<Key, Compare, Allocator>& lhs, const ft::set<Key, Compare, Allocator>& rhs ) {
             return !(lhs < rhs);
         }
 
-        friend void swap( ft::set<Key, Compare, Alloc>& lhs, ft::set<Key, Compare, Alloc>& rhs ) {
+        friend void swap( ft::set<Key, Compare, Allocator>& lhs, ft::set<Key, Compare, Allocator>& rhs ) {
             lhs.swap(rhs);
         }
 };
