@@ -2,8 +2,8 @@
 #define MULTISET_HPP
 
 //#include "../pair.hpp"
-#include "../less.hpp"
-#include "../lexicographical_compare.hpp"
+#include "../utility/less.hpp"
+#include "../utility/lexicographical_compare.hpp"
 #include <memory>
 #include <cstddef>
 

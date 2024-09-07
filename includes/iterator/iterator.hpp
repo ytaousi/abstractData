@@ -1,6 +1,7 @@
 #ifndef ITERATOR_HPP
 #define ITERATOR_HPP
 
+#include <iterator>
 #include "iterator_traits.hpp"
 #include <memory>
 #include <iostream>
@@ -36,7 +37,6 @@ class reverse_iterator
         reverse_iterator() {
             std::cout << "Default Constructor Called" << std::endl;
             _it = Iterator();
-            _it = 0;
         }
         explicit reverse_iterator (iterator_type it) {
             std::cout << "Initialization Constructor Called" << std::endl;
@@ -84,7 +84,7 @@ class reverse_iterator
         }
         reference operator*() const {
             Iterator temp = _it;
-            return *--temp;
+            return *(--temp);
         }
         pointer operator->() const  {
             return &(operator*());

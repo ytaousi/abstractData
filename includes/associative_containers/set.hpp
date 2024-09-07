@@ -32,34 +32,91 @@ class set
     protected:
     public:
         // Empty // Range // Copy
-        explicit set (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
-        set (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
-        set (const set& x);
-        ~set();
-        set& operator=( const set& other );
-        allocator_type get_allocator() const;
+        explicit set (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+        {
+            (void)comp;
+            (void)alloc;
+        };
+        set (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+        {
+            (void)first;
+            (void)last;
+            (void)comp;
+            (void)alloc;
+        };
+        set (const set& x)
+        {
+            (void)x;
+        };
+        ~set() {};
+        set& operator=( const set& other )
+        {
+            (void)other;
+            return *this;
+        };
+        allocator_type get_allocator() const {};
         // Capacity:
-        bool empty() const;
-        size_type size() const;
-        size_type max_size() const;
+        bool empty() const {
+            return true;
+        };
+        size_type size() const {
+            return 0;
+        };
+        size_type max_size() const
+        {
+            return 0
+        };
         // Modifiers:
-        void clear();
-        std::pair<iterator, bool> insert( const value_type& value );
-        iterator insert( iterator pos, const value_type& value );
-        void insert( InputIterator first, InputIterator last );
+        void clear() {};
+        std::pair<iterator, bool> insert( const value_type& value )
+        {
+            (void)value;
+            return std::pair<iterator, bool>(iterator(), false);
+        };
+        iterator insert( iterator pos, const value_type& value ) {
+            (void)pos;
+            (void)value;
+            return NULL;
+        };
+        void insert( InputIterator first, InputIterator last ) {
+            (void)first;
+            (void)last;
+        };
         size_type erase( const Key& key );
-        iterator erase( iterator first, iterator last );
-        iterator erase( iterator pos );
+        iterator erase( iterator first, iterator last ) {
+            (void)first;
+            (void)last;
+            return NULL;
+        };
+        iterator erase( iterator pos ) {
+            (void)pos;
+            return NULL;
+        };
         void swap( set& other );
         // Observers:
-        key_compare key_comp() const;
-        value_compare value_comp() const;
+        key_compare key_comp() const {};
+        value_compare value_comp() const {};
         // Operations:
-        iterator find (const value_type& val) const;
-        size_type count (const value_type& val) const;
-        iterator lower_bound (const value_type& val) const;
-        iterator upper_bound (const value_type& val) const;
-        std::pair<iterator,iterator> equal_range (const value_type& val) const;
+        iterator find (const value_type& val) const {
+            (void)val;
+            return NULL;
+        };
+        size_type count (const value_type& val) const {
+            (void)val;
+            return 0;
+        };
+        iterator lower_bound (const value_type& val) const {
+            (void)val;
+            return NULL;
+        };
+        iterator upper_bound (const value_type& val) const {
+            (void)val;
+            return NULL;
+        }
+        std::pair<iterator,iterator> equal_range (const value_type& val) const {
+            (void)val;
+            return std::pair<iterator,iterator>(iterator(), iterator());
+        };
 
         friend bool operator==( const ft::set<Key, Compare, Allocator>& lhs, const ft::set<Key, Compare, Allocator>& rhs ) {
             if (lhs.size != rhs.size)

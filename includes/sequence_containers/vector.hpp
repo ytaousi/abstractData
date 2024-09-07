@@ -1,6 +1,7 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+// Done :  , Not Done : 13
 #include <memory>
 #include "../utility/lexicographical_compare.hpp"
 #include <cstddef>
@@ -17,17 +18,15 @@ class vector
         typedef size_t size_type;
         typedef Allocator allocator_type;
         typedef ptrdiff_t difference_type;
-        typedef value_type& reference;
-        typedef const value_type& const_reference;
-        typedef T* pointer; // check this
-        typedef const T* const_pointer; // check this
+        typedef typename allocator_type::reference reference;
+        typedef typename allocator_type::const_reference const_reference;
+        typedef typename allocator_type::pointer pointer;
+        typedef typename allocator_type::const_pointer const_pointer;
         typedef value_type* iterator;  // should implement iterator traits and get to random_access_iterator .
         typedef const value_type* const_iterator; // should implement iterator traits and get to random_access_iterator .
         typedef std::reverse_iterator<iterator> reverse_iterator;   // ft::reverse_iterator<value_type*>
         typedef std::reverse_iterator<const_iterator> const_reverse_iterator; // ft::reverse_iterator<const value_type*>
         typedef typename std::iterator<std::random_access_iterator_tag, value_type> InputIterator;
-        typedef iterator  begin();
-        typedef iterator  end();
     protected:
         allocator_type _alloc;
         size_type   _capacity;
@@ -36,7 +35,7 @@ class vector
     public:
         // Default // Fill // Range // Copy
         vector(){std::cout <<" Default Constructor Called No param " << std::endl;
-            this->_capacity = 24;
+            this->_capacity = 0;
             this->_size = 0;
             this->_array = this->get_allocator().allocate(this->_capacity);
         };
@@ -64,11 +63,16 @@ class vector
         };
         vector( const vector& other ) {
             std::cout << " Copy constructor Called " << std::endl;
-            (void)other;
+            this->_capacity = other._capacity;
+            this->_size = other._size;
+            this->_array = this->_alloc.allocate(this->_capacity);
+            for (size_t i = 0; i < this->_size; i++)
+                this->_alloc.construct(this->_array + i, other._array[i]);
         };
         ~vector() { // Done
             std::cout << " Destructor Called " << std::endl;
-            this->clear();
+            for (; this->_size > 0; this->_size--)
+                _alloc.destroy(this->_array + (this->_size - 1));
             this->_alloc.deallocate(this->_array, this->_capacity);
             this->_size = 0;
             this->_capacity = 0;
@@ -78,6 +82,33 @@ class vector
             (void)other;
             return NULL;
         };
+        iterator begin() { // Done
+            // return an iterator pointing to the first element
+            return this->_array;
+        };
+
+        const_iterator begin() const { // Done
+            return this->_array;
+        }
+        iterator end() { // Done
+            return this->_array + this->_size;
+        }
+        const_iterator end() const { // Done
+            return this->_array + this->_size;
+        }
+        reverse_iterator rbegin() { // Done
+            // return a reverse iterator pointing to the last element in the array
+            return reverse_iterator(this->_array + this->_size);
+        }
+        const_reverse_iterator rbegin() const { // Done
+            return const_reverse_iterator(this->_array + this->_size);
+        }
+        reverse_iterator rend() { // Done
+            return reverse_iterator(this->_array - 1);
+        }
+        const_reverse_iterator rend() const { // Done
+            return const_reverse_iterator(this->_array - 1);
+        }
         // Range // Fill
         void assign (InputIterator first, InputIterator last){
             std::cout << " Assign Range Called " << std::endl;
@@ -92,15 +123,15 @@ class vector
         allocator_type get_allocator() const { // Done
             return this->_alloc;
         };
-        reference at( size_type pos ){
-            std::cout << " At Called " << std::endl;
-            (void)pos;
-            return NULL;
+        reference at( size_type pos ){ // Done
+            if (pos < 0 || pos >= this->_size)
+                throw std::out_of_range("Out of range");
+            return this->_array[pos];
         };
-        const_reference at( size_type pos ) const{
-            std::cout << "const At Called " << std::endl;
-            (void)pos;
-            return NULL;
+        const_reference at( size_type pos ) const { // Done
+           if (pos < 0 || pos >= this->_size)
+                throw std::out_of_range("Out of range");
+            return this->_array[pos];
         };
         reference operator[]( size_type pos ) { // Done
             return this->_array[pos];
@@ -109,6 +140,7 @@ class vector
             return this->_array[pos];
         }
         reference front() { // Done
+            // return reference of the first element
             return this->_array[0];
         }
         const_reference front() const { // Done
@@ -120,11 +152,11 @@ class vector
         const_reference back() const { // Done
             return this->_array[this->_size - 1];
         }
-        value_type* data(){
-            return NULL;
+        value_type* data() { // Done
+            return this->_array;
         };
-        const value_type* data() const {
-            return NULL;
+        const value_type* data() const { // Done
+            return this->_array;
         };
         bool empty() const { // Done
             if (this->_size == 0)
@@ -179,6 +211,7 @@ class vector
         };
         void push_back (const_reference val){
             std::cout << " Push Back Called " << std::endl;
+
             (void)val;
         };
         void pop_back() { // Done
