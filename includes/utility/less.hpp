@@ -2,13 +2,13 @@
 #define LESS_HPP
 
 #include <functional>
-#include "binary_function.hpp"
-#include "unary_function.hpp"
+// #include "binary_function.hpp"
+// #include "unary_function.hpp"
 
 namespace ft {
 
 template< typename T >
-struct less : ft::binary_function<T,T,bool> // ft::binary_function<T,T,bool>
+struct less : std::binary_function<T,T,bool> // ft::binary_function<T,T,bool>
 {
     public:
         typedef T first_argument_type;
@@ -21,7 +21,7 @@ struct less : ft::binary_function<T,T,bool> // ft::binary_function<T,T,bool>
 };
 
 template< typename T >
-struct less_than : ft::unary_function<T,bool>
+struct less_than : std::unary_function<T,bool>
 {
     public:
         typedef T argument_type;
