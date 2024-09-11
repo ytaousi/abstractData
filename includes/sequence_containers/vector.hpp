@@ -77,10 +77,13 @@ class vector
             this->_size = 0;
             this->_capacity = 0;
         };
-        vector& operator=( const vector& other ){
+        vector& operator=( const vector& other ){ // should be tested
             std::cout << " Assign operator Called" << std::endl;
-            (void)other;
-            return NULL;
+            if (this == &other)
+                return *this;
+            this->clear();
+            this->insert(this->begin(), other.begin(), other.end());
+            return *this;
         };
         iterator begin() { // Done
             // return an iterator pointing to the first element
